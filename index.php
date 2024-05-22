@@ -1,13 +1,11 @@
 <?php
+require_once __DIR__ . "/partials/function.php";
 $message;
 
 if (isset($_GET["email"])) {
   $user_email = $_GET["email"];
-  if (str_contains($user_email, '@') && str_contains($user_email, '.')) {
-    $message = "La email inserita è una mail valida";
-  } else {
-    $message = "La email inserita non è una email valida";
-  }
+
+  $message = checkEmail($user_email);
 }
 ?>
 
@@ -32,7 +30,7 @@ if (isset($_GET["email"])) {
       <button type="submit" class="btn btn-primary">invia</button>
     </form>
     <?php if (!empty($message)) { ?>
-      <div><?= $message ?></div>
+      <div class="<?= $message === 'La email inserita è una mail valida' ? 'alert alert-success' : 'alert alert-danger' ?>"><?= $message ?></div>
     <?php } ?>
   </div>
 </body>
