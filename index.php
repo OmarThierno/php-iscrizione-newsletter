@@ -1,11 +1,21 @@
 <?php
 require_once __DIR__ . "/partials/function.php";
 $message;
+$array_email_save = [];
+
+if (!isset($_SESSION)) {
+  session_start();
+}
 
 if (isset($_GET["email"])) {
   $user_email = $_GET["email"];
 
   $message = checkEmail($user_email);
+  if ($message === 'La email inserita è una mail valida') {
+    $array_email_save[] = $user_email;
+    $_SESSION["auth"] = true;
+    header('Location: ./thankyou.php');
+  }
 }
 ?>
 
